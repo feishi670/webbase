@@ -4,16 +4,12 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-public class TestJob extends QuartzJobBean{
-	public void testJob() {
-		System.out.println("execute:"+System.currentTimeMillis());
-	}
-	public static void main(String[] args) {
-		
-	}
+public class TestQuartzJob2  extends QuartzJobBean{
+
 	@Override
 	protected void executeInternal(JobExecutionContext arg0) throws JobExecutionException {
 		// TODO Auto-generated method stub
-		System.out.println("定时任务测试"); 
+		System.out.println(this.getClass().getName()+"::"+Thread.currentThread());  
 	}
+
 }

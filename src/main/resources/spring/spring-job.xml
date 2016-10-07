@@ -19,44 +19,64 @@
 	<!-- 启用spring mvc 注解 -->
 	<context:annotation-config />
 
-	<!-- <context:component-scan base-package="com.wendell.job"/> -->
+	<!-- <context:component-scan base-package="com.wendell.job" /> -->
 
+	<!--quartz job config -->
 
+	<bean id="testQuartzJobDetail1"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="com.wendell.job.TestQuartzJob1" />
+		<property name="jobDataMap">
+			<map>
+				<entry key="timeout" value="5" />
+			</map>
+		</property>
+	</bean>
+	<bean id="testQuartzJobDetail2"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="com.wendell.job.TestQuartzJob2" />
+		<property name="jobDataMap">
+			<map>
+				<entry key="timeout" value="5" />
+			</map>
+		</property>
+	</bean>
 
-	<!-- quartz job config-->
-
-	<!-- <bean id="jobDetailFactory" class="org.springframework.scheduling.quartz.JobDetailFactoryBean"> 
-		<property name="jobClass" value="com.wendell.job.TestJob" /> <property name="jobDataMap"> 
-		<map> <entry key="timeout" value="5" /> </map> </property> </bean> -->
-
-	<bean id="jobDetailFactory"
+	<bean id="testQuartzJobDetail3"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<!-- 这个就是具体实现类，如果是注解，则必须为component指定value -->
 		<property name="targetObject">
-			<bean class="com.wendell.job.TestJob" />
+			<bean class="com.wendell.job.TestQuartzJob3" />
 		</property>
 		<!-- targetMethod是Spring定时器的特殊属性 -->
 		<property name="targetMethod" value="testJob" />
 		<!-- false表示job不会并发执行，默认为true -->
 		<property name="concurrent" value="false" />
 	</bean>
-	<bean id="simpleTrigger"
+	
+	
+	<bean id="testQuartzTrigger1"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail" ref="jobDetailFactory" />
-		<!-- 每天早上六点执行一次 <property name="cronExpression" value="0 0 6 * * ?" /> -->
-		<!--每分执行一次 <property name="cronExpression" value="0 0/1 * * * ?" /> -->
-		<!--每5秒执行一次 -->
+		<property name="jobDetail" ref="testQuartzJobDetail1" />
+		<property name="cronExpression" value="0/5 * * * * ?" />
+	</bean>
+	<bean id="testQuartzTrigger2"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="testQuartzJobDetail2" />
+		<property name="cronExpression" value="0/5 * * * * ?" />
+	</bean>
+	<bean id="testQuartzTrigger3"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="testQuartzJobDetail3" />
 		<property name="cronExpression" value="0/5 * * * * ?" />
 	</bean>
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<!-- <ref bean="cronTrigger" /> -->
-				<ref bean="simpleTrigger" />
+<!-- 				<ref bean="testQuartzTrigger1" />
+				<ref bean="testQuartzTrigger2" />
+				<ref bean="testQuartzTrigger3" /> -->
 			</list>
 		</property>
 	</bean>
-
-	<bean id="testJob" class="com.wendell.job.TestJob" />
-
 </beans>
