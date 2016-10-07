@@ -1,14 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"    
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:p="http://www.springframework.org/schema/p"    
-    xmlns:context="http://www.springframework.org/schema/context"    
-    xmlns:mvc="http://www.springframework.org/schema/mvc"    
-    xsi:schemaLocation="     
-           http://www.springframework.org/schema/beans     
-           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd     
-           http://www.springframework.org/schema/context     
-           http://www.springframework.org/schema/context/spring-context-4.0.xsd    
-           http://www.springframework.org/schema/mvc     
-           http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd"> 
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="		
+		http://www.springframework.org/schema/beans		
+		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd		
+		http://www.springframework.org/schema/context		
+		http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/task  
+		http://www.springframework.org/schema/task/spring-task-4.2.xsd
+		http://www.springframework.org/schema/mvc		
+		http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+
+	<!-- 定时任务执行 driven -->
+	<task:annotation-driven />
+
+	<!-- 启用spring mvc 注解 -->
+	<context:annotation-config />
+
+	<!-- <context:component-scan base-package="com.wendell.job"/> -->
+
+
+
+	<!-- quartz job config-->
+
+	<!-- <bean id="jobDetailFactory" class="org.springframework.scheduling.quartz.JobDetailFactoryBean"> 
+		<property name="jobClass" value="com.wendell.job.TestJob" /> <property name="jobDataMap"> 
+		<map> <entry key="timeout" value="5" /> </map> </property> </bean> -->
+
+	<bean id="jobDetailFactory"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 这个就是具体实现类，如果是注解，则必须为component指定value -->
+		<property name="targetObject">
+			<bean class="com.wendell.job.TestJob" />
+		</property>
+		<!-- targetMethod是Spring定时器的特殊属性 -->
+		<property name="targetMethod" value="testJob" />
+		<!-- false表示job不会并发执行，默认为true -->
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="simpleTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="jobDetailFactory" />
+		<!-- 每天早上六点执行一次 <property name="cronExpression" value="0 0 6 * * ?" /> -->
+		<!--每分执行一次 <property name="cronExpression" value="0 0/1 * * * ?" /> -->
+		<!--每5秒执行一次 -->
+		<property name="cronExpression" value="0/5 * * * * ?" />
+	</bean>
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!-- <ref bean="cronTrigger" /> -->
+				<ref bean="simpleTrigger" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="testJob" class="com.wendell.job.TestJob" />
+
 </beans>
