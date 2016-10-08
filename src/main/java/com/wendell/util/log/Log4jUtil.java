@@ -7,14 +7,22 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 public class Log4jUtil {
-	public static void main(String[] args) throws Exception {
-		
+	
+	static{
 		setLog4jProperty( "/log4j/log4j.properties");
-		
-		Logger log = Logger.getLogger(Log4jUtil.class);
+	}
+	
+	public static void main(String[] args) throws Exception {
+		setLog4jProperty( "/log4j/log4j.properties");
+		Logger log = getLogger(Log4jUtil.class);
 		log.info("info");
 		log.error("error");
 	}
+	
+	public static Logger getLogger(Class<Log4jUtil> class1) {
+		return  Logger.getLogger(Log4jUtil.class);
+	}
+
 	public static boolean setLog4jProperty(String path){
 		String currentPath=Log4jUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 		String logFile =currentPath+path;

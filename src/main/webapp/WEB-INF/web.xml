@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
           http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-    	version="3.0">
+	version="3.0">
 	<display-name>SpringMVC</display-name>
 
 	<servlet>
@@ -22,7 +21,13 @@
 		<servlet-name>SpringMVC</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
+	<listener>
+		<listener-class>com.wendell.web.listener.Log4jListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>log4j</param-name>
+		<param-value>/log4j/log4j.properties</param-value>
+	</context-param>
 	<welcome-file-list>
 		<welcome-file>index.jsp,index.html</welcome-file>
 	</welcome-file-list>
