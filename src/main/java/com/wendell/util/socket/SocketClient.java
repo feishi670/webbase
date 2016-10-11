@@ -92,6 +92,7 @@ public class SocketClient {
 	public static void main(String[] args) throws IOException {
 		SocketClient client = new SocketClient(InetAddress.getLocalHost(), 9096);
 		client.startListener();
+		
 		Scanner reader=new Scanner(System.in);
 
 		System.out.println("client start");

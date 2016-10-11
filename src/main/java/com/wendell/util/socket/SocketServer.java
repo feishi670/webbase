@@ -116,7 +116,6 @@ public class SocketServer {
 			System.out.println("send msg:"+msg+"  to client;client num:"+clients.size());
 			for(Socket socket:clients){
 				write(socket,msg);
-
 			}
 	}
 	public void write(Socket socket,String msg) throws IOException{
