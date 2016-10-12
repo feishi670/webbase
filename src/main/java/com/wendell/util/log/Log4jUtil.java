@@ -19,7 +19,7 @@ public class Log4jUtil {
 		log.error("error");
 	}
 	
-	public static Logger getLogger(Class<Log4jUtil> class1) {
+	public static Logger getLogger(Class<?> class1) {
 		return  Logger.getLogger(Log4jUtil.class);
 	}
 
