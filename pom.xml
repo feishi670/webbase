@@ -89,7 +89,12 @@
 <dependency>
     <groupId>org.hibernate</groupId>
     <artifactId>hibernate-core</artifactId>
-    <version>5.2.3.Final</version>
+    <version>5.1.2.Final</version>
+</dependency>
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-log4j12</artifactId>
+    <version>1.7.21</version>
 </dependency>
 <dependency>
     <groupId>mysql</groupId>
@@ -97,8 +102,12 @@
     <version>5.1.40</version>
 </dependency>
 
-
-
+<!-- spring事物依赖 -->
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjweaver</artifactId>
+    <version>1.8.9</version>
+</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>

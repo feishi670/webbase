@@ -15,8 +15,9 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 public class SpringLoader {
 	public static void main(String[] args) {
-		String config="spring/*.xml";
-		getApplicationContextWithClassPath(config);
+		String config="spring/SpringMVC-servlet.xml";
+		ApplicationContext ac = getApplicationContextWithClassPath(config);
+		System.out.println(ac.getBean("userService"));
 	}
 	/**
 	 * 

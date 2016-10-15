@@ -16,10 +16,10 @@ import javax.persistence.Transient;
 public class User {
 	@Id
 	@GeneratedValue
-	private String id;
-	@Column(insertable = true, length = 200, nullable = false, name = "user_name", unique = true, updatable = true)
+	private int id;
+	@Column(insertable = true, length = 200, nullable = false, name = "name", unique = true, updatable = true)
 	private String name;
-	@Column(insertable = true, length = 200, nullable = false, name = "user_name", unique = true, updatable = true)
+	@Column(insertable = true, length = 200, nullable = false, name = "nikeName", unique = true, updatable = true)
 	private String nikeName;
 	@Transient // 被标注此注解的属性不会被持久化到数据库
 	private String temp;
@@ -30,12 +30,29 @@ public class User {
 	@Temporal(TemporalType.TIME)
 	private Date birthDate;
 
-	public String getId() {
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getTemp() {
+		return temp;
+	}
+
+	public void setTemp(String temp) {
+		this.temp = temp;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 
 	public String getName() {

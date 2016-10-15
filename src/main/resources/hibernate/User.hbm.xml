@@ -3,10 +3,11 @@
   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.wendell.model">
- <class name="User" table="User">
+ <class name="User" table="T_User">
   <id name="id" column="id">
+  	<generator class="native"></generator>
   </id>
   <property name="name" type="string" column="name"/>
-  <property name="nikeName" type="int" column="nikeName"/>
+  <property name="nikeName" type="string" column="nikeName"/>
  </class>
 </hibernate-mapping>
