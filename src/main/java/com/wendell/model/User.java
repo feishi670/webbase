@@ -18,7 +18,7 @@ public class User {
 	@GeneratedValue
 	private int id;
 	@Column(insertable = true, length = 200, nullable = false, name = "name", unique = true, updatable = true)
-	private String name;
+	private String Name;
 	@Column(insertable = true, length = 200, nullable = false, name = "nikeName", unique = true, updatable = true)
 	private String nikeName;
 	@Transient // 被标注此注解的属性不会被持久化到数据库
@@ -56,11 +56,11 @@ public class User {
 	}
 
 	public String getName() {
-		return name;
+		return Name;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.Name = name;
 	}
 
 	public String getNikeName() {
